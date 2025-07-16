@@ -305,7 +305,8 @@ section {
 .home-img {
     position: relative;
     width: 35%;
-    margin-top: 100px;
+    margin-top: 25px;
+    margin-left: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
