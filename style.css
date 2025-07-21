@@ -76,6 +76,7 @@ body {
     0% {
         transform: translateY(-100%);
     }
+
     100% {
         transform: translateY(0);
     }
@@ -139,7 +140,7 @@ body {
     .menu-toggle {
         display: block;
     }
-    
+
     .navbar {
         position: fixed;
         top: 0;
@@ -153,11 +154,11 @@ body {
         transition: .5s;
         z-index: 1000;
     }
-    
+
     .navbar.active {
         left: 0;
     }
-    
+
     .navbar a {
         margin: 1.5rem 0;
         font-size: 2.5rem;
@@ -294,9 +295,11 @@ section {
     0% {
         box-shadow: 0 0 0 0 rgba(0, 171, 240, 0.7);
     }
+
     70% {
         box-shadow: 0 0 0 10px rgba(0, 171, 240, 0);
     }
+
     100% {
         box-shadow: 0 0 0 0 rgba(0, 171, 240, 0);
     }
@@ -304,76 +307,98 @@ section {
 
 .home-img {
     position: relative;
-    width: 35%;
-    margin-top: 25px;
-    margin-left: 150px;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: visible;
 }
 
-.glowing-circle {
+.home-img .glowing-circle {
     position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+    width: 35rem;
+    height: 35rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: float 6s ease-in-out infinite;
 }
 
-@keyframes float {
+.home-img .glowing-circle span {
+    position: absolute;
+    inset: 5;
+    width: 120%;
+    height: 120%;
+    border: 5px solid transparent;
+    border-radius: 50%;
+    background:
+        linear-gradient(90deg,
+            transparent 0%,
+            transparent 10%,
+            #00abf0 50%,
+            transparent 90%,
+            transparent 100%);
+    background-size: 200% 100%;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: flowBorder 3s linear infinite;
+}
+
+.home-img .glowing-circle span:nth-child(2) {
+    animation: flowBorder 3s linear infinite 0.5s;
+    filter: blur(8px);
+    opacity: 0.6;
+}
+
+@keyframes flowBorder {
     0% {
-        transform: translateY(0);
+        background-position: -100% 0%;
     }
-    50% {
-        transform: translateY(-20px);
-    }
+
     100% {
-        transform: translateY(0);
+        background-position: 100% 0%;
     }
 }
 
-.glowing-circle::after {
-    content: '';
-    position: absolute;
-    width: 38rem;
-    height: 38rem;
-    background: var(--second-bg-color);
-    border-radius: 50%;
-}
-
-.glowing-circle span {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(var(--main-color), var(--second-bg-color));
-    border-radius: 50%;
-}
-
-.glowing-circle span:nth-child(1) {
-    filter: blur(1rem);
-}
-
-.glowing-circle .image {
+.home-img .glowing-circle .image {
     position: relative;
     width: 35rem;
     height: 35rem;
     border-radius: 50%;
     z-index: 10;
     overflow: hidden;
-    transition: all 0.5s ease;
+    border: 2px solid rgba(0, 171, 240, 0.3);
 }
 
-.glowing-circle .image:hover {
-    transform: scale(1.05);
-}
-
-.glowing-circle .image img {
+.home-img .glowing-circle .image img {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home-img .image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    border: 2px solid rgba(0, 171, 240, 0.3);
+    border-radius: 50%;
+    transition: all 0.5s ease;
+}
+
+.home-img .image:hover {
+    transform: scale(1.02);
+    border-color: var(--main-color);
+}
+
+.home-img .image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -413,9 +438,11 @@ section {
         opacity: 0;
         transform: rotate(45deg) translate(-1rem, -1rem);
     }
+
     50% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
         transform: rotate(45deg) translate(1rem, 1rem);
@@ -488,17 +515,16 @@ section {
     border: 5px solid transparent;
     border-radius: 0.5rem;
     box-sizing: border-box;
-    background: 
-        linear-gradient(90deg, 
-            transparent 0%, 
+    background:
+        linear-gradient(90deg,
+            transparent 0%,
             transparent 10%,
             var(--main-color) 50%,
             transparent 90%,
-            transparent 100%) 
-        border-box;
+            transparent 100%) border-box;
     background-size: 200% 100%;
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) padding-box, 
+    -webkit-mask:
+        linear-gradient(#fff 0 0) padding-box,
         linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -516,7 +542,7 @@ section {
     position: absolute;
     inset: 5px;
     border-radius: 0.3rem;
-    background: transparent; 
+    background: transparent;
     z-index: -1;
 }
 
@@ -524,6 +550,7 @@ section {
     0% {
         background-position: -100% 0%;
     }
+
     100% {
         background-position: 100% 0%;
     }
@@ -592,12 +619,10 @@ section {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(
-        to bottom right,
-        transparent,
-        rgba(0, 171, 240, 0.1),
-        transparent
-    );
+    background: linear-gradient(to bottom right,
+            transparent,
+            rgba(0, 171, 240, 0.1),
+            transparent);
     transform: rotate(45deg);
     transition: all 0.6s ease;
 }
@@ -615,6 +640,7 @@ section {
     0% {
         transform: rotate(45deg) translate(-50%, -50%);
     }
+
     100% {
         transform: rotate(45deg) translate(50%, 50%);
     }
@@ -670,12 +696,10 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(0, 171, 240, 0.05),
-        transparent
-    );
+    background: linear-gradient(45deg,
+            transparent,
+            rgba(0, 171, 240, 0.05),
+            transparent);
     z-index: 0;
 }
 
@@ -739,12 +763,10 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-    );
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
     animation: progressShine 2s infinite;
 }
 
@@ -752,13 +774,14 @@ section {
     0% {
         transform: translateX(-100%);
     }
+
     100% {
         transform: translateX(100%);
     }
 }
 
 .skill-progress.python {
-    width: 75%;
+    width: 85%;
 }
 
 .skill-progress.html {
@@ -1031,14 +1054,16 @@ section {
 .loader {
     width: 2rem;
     height: 2rem;
-    border: 3px solid rgba(255,255,255,0.3);
+    border: 3px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
     border-top-color: #fff;
     animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .btn {
@@ -1128,31 +1153,48 @@ section {
 @media (max-width: 768px) {
     .menu-toggle {
         display: block;
+        z-index: 1000;
     }
-    
+
     .navbar {
         position: fixed;
         top: 0;
         left: -100%;
-        width: 100%;
+        width: 50vw;
         height: 100vh;
-        background: var(--bg-color);
+        background: var(--bg-color, #111);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transition: .5s;
+        transition: left 0.4s ease-in-out;
         z-index: 1000;
-    }
-    
-    .navbar.active {
-        left: 0;
-    }
-    
-    .navbar a {
-        margin: 1.5rem 0;
-        font-size: 2.5rem;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
     }
 
+    .navbar.active {
+        right: 0;
+    }
+
+    .navbar a {
+        margin: 1.5rem 0;
+        font-size: 2.2rem;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .navbar a:hover {
+        color: #00abf0;
+    }
+
+    /* Rest of your layout adjustments */
     .home {
         flex-direction: column;
         padding: 0 3%;
@@ -1166,7 +1208,9 @@ section {
 
     .home-img {
         width: 70vw;
-        margin-bottom: 4rem;
+        margin-top: 100px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .about-container {
@@ -1183,6 +1227,7 @@ section {
     }
 }
 
+
 @media (max-width: 450px) {
     html {
         font-size: 50%;
@@ -1190,6 +1235,15 @@ section {
 
     .home-img {
         width: 90vw;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 100px;
+    }
+
+    .home-img img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
     }
 
     .about-img {
@@ -1217,6 +1271,7 @@ section {
         transform: translateX(-100px);
         opacity: 0;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -1228,6 +1283,7 @@ section {
         transform: translateX(100px);
         opacity: 0;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -1239,6 +1295,7 @@ section {
         transform: translateY(100px);
         opacity: 0;
     }
+
     100% {
         transform: translateY(0);
         opacity: 1;
@@ -1250,6 +1307,7 @@ section {
         transform: translateY(-100px);
         opacity: 0;
     }
+
     100% {
         transform: translateY(0);
         opacity: 1;
@@ -1261,6 +1319,7 @@ section {
         transform: scale(0);
         opacity: 0;
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
@@ -1271,9 +1330,11 @@ section {
     0% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-2.4rem);
     }
+
     100% {
         transform: translateY(0);
     }
@@ -1283,6 +1344,7 @@ section {
     0% {
         transform: rotate(0);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -1359,6 +1421,7 @@ section.show-animate {
         transform: translateY(-100vh) rotate(0deg);
         opacity: 1;
     }
+
     100% {
         transform: translateY(100vh) rotate(360deg);
         opacity: 0;
