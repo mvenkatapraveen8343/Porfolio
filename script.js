@@ -97,6 +97,19 @@ document.addEventListener('DOMContentLoaded', function () {
             btnLoader.style.display = 'block';
             submitBtn.disabled = true;
 
+            // Set date + time in the hidden input
+            const now = new Date();
+            const formattedDate = now.toLocaleString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+            document.getElementById('dateField').value = formattedDate;
+
             try {
                 const response = await emailjs.sendForm(
                     'service_s2nqk77',
@@ -105,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 );
 
                 contactForm.reset();
-
                 setTimeout(() => {
                     window.location.href = 'thankyou.html';
                 }, 0);
@@ -120,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 submitBtn.disabled = false;
             }
         });
+
     }
 
     function validateForm() {
