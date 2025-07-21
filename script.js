@@ -332,21 +332,36 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - navHeight,
-                    behavior: 'smooth'
-                });
+            const href = this.getAttribute('href');
+            if (href.startsWith('#')) {
+                const targetElement = document.querySelector(href);
+                if (targetElement) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetElement.offsetTop - navHeight,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
+
+    document.querySelectorAll('.info-box[data-link]').forEach(box => {
+        box.style.cursor = 'pointer';
+        box.addEventListener('click', () => {
+            const link = box.getAttribute('data-link');
+            const type = box.getAttribute('data-type');
+
+            if (type === 'email' || type === 'phone') {
+                window.location.href = link;
+            } else {
+                window.open(link, '_blank');
+            }
+        });
+    });
+
 
     gsap.from('.logo', {
         duration: 1,
